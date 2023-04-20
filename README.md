@@ -1,4 +1,4 @@
-# CITS4402_Assignment2
+# CITS4404_Assignment2
 
 Install dependencies with:
 pip install -r requirements.txt
