@@ -7,7 +7,7 @@ import ta
 # set up parameters
 pair = 'XBTAUD'  # BTC/AUD pair
 interval = 1440  # daily interval
-since = 1647625329  # timestamp for start date (March 1, 2023)
+since = 1609430400  # timestamp for start date (January 1, 2021)
 
 # retrieve data
 url = f"https://api.kraken.com/0/public/OHLC?pair={pair}&since={since}&interval={interval}"
