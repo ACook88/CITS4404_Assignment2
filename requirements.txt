@@ -3,3 +3,5 @@ matplotlib
 mplfinance
 requests
 ta
+backtrader
+random
