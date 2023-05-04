@@ -65,4 +65,3 @@ def backtest(data_file,**strategy_params):
 
 STRATEGY_PARAMS = dict(ema1=2, ema2=6, ema3=10)
 back = backtest('data/kraken_data.csv',**STRATEGY_PARAMS)
-
