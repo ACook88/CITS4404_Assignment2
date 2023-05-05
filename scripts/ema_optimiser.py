@@ -99,6 +99,8 @@ def optimise_ema(backtest_func, ema_range, population_size, generations,low_boun
             fitnesses[i] = new_fitness[i]
         #print the new population
         sorted_population = sorted(zip(population, fitnesses), key=lambda x: x[1], reverse=True)
+        # Check the population size
+        # We may need to drop the bottom 0.1 values?
         print("Top 3 Generation" + str(gen))
         print(sorted_population[0])
         print(sorted_population[1])
