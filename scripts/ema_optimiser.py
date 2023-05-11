@@ -10,6 +10,7 @@ def optimise_ema(backtest_func, ema_range, population_size, generations,low_boun
     def sbx_crossover(p1, p2, eta, low_bound, up_bound):
         c1, c2 = p1[:], p2[:]
         for i in range(len(p1)):
+            #CroosOver Probability set to 1
             if random.random() < 1:
                 if abs(p1[i] - p2[i]) > 1e-14:
                     if p1[i] < p2[i]:
@@ -35,7 +36,6 @@ def optimise_ema(backtest_func, ema_range, population_size, generations,low_boun
     
     def polynomial_mutation(solution, eta, low_bound, up_bound, mutation_prob):
         mutated_solution = solution[:]
-        #print(mutated_solution)
         for i in range(len(solution)):
             if random.random() < mutation_prob:
                 delta1 = (mutated_solution[i] - low_bound[i]) / (up_bound[i] - low_bound[i])
@@ -53,8 +53,18 @@ def optimise_ema(backtest_func, ema_range, population_size, generations,low_boun
         return mutated_solution
     # Define the fitness function
     def fitness(individual):
+        
         ema1, ema2, ema3 = individual
-
+        
+        if ema1 >= ema2 or ema1 >= ema3:
+            return -np.inf,
+    
+        if ema2 >= ema3 or ema2 <= ema1:
+            return -np.inf,
+        
+        if ema3 <= ema2 or ema3 <= ema1:
+            return -np.inf,
+        
         final_portfolio_value = backtest_func('data/kraken_data.csv', ema1=ema1, ema2=ema2, ema3=ema3)
 
         return final_portfolio_value,
@@ -73,16 +83,13 @@ def optimise_ema(backtest_func, ema_range, population_size, generations,low_boun
             winner = tournament_selection(population,fitnesses,3)
             mat_pool.append(winner)
 
-        # REMOVE - Select the top individuals
-        # top_individuals = [x[0] for x in sorted_population[:int(population_size * 0.1)]]
-        # new_population.extend(top_individuals)
-
         # Select pairs to realize croosover and post mutation
         num_pairs = int(population_size/2)
         for i in range(num_pairs):
             if len(mat_pool) < 2:
                 break
             pair=random.sample(mat_pool,2)
+            #ETA Parameter is set to 20 in CroosOver and Mutation Methods
             child1,child2 = sbx_crossover(pair[0],pair[1],20,low_bound,up_bound)
             child1 = polynomial_mutation(child1,20,low_bound,up_bound,0.3)
             child2 = polynomial_mutation(child2,20,low_bound,up_bound,0.3)
