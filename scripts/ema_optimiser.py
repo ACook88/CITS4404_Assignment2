@@ -1,5 +1,5 @@
 import random
-
+import numpy as np
 # Optimise the EMA values
 def optimise_ema(backtest_func, ema_range, population_size, generations,low_bound,up_bound):
     #EA Algorithms for Tournament Selection, SBX CroosOver and  Polynomial Mutation

@@ -21,7 +21,7 @@ low_bound=[1,5,10]
 up_bound=[25,50,75]
 
 # Run the optimization
-best_individual, best_fitness = optimise_ema(backtest, ema_ranges, population_size, generations)
+best_individual, best_fitness = optimise_ema(backtest, ema_ranges, population_size, generations,low_bound,up_bound)
 print(f"Best individual: {best_individual}, best fitness: {best_fitness}")
 
 # Run evaluation
