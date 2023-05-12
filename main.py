@@ -14,9 +14,11 @@ except Exception as e:
     print(f"Error retrieving Kraken data: {e}")
 
 # Set parameters for optimization
-ema_ranges = (range(10, 25), range(26, 40), range(41, 65))
+ema_ranges = (range(1, 25), range(5, 50), range(10, 75))
 population_size = 100
-generations = 50
+generations = 20
+low_bound=[1,5,10]
+up_bound=[25,50,75]
 
 # Run the optimization
 best_individual, best_fitness = optimise_ema(backtest, ema_ranges, population_size, generations)
