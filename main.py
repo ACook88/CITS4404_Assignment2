@@ -1,7 +1,7 @@
 from scripts.kraken_data import get_kraken_data
 from scripts.ema_optimiser import optimise_ema
 from scripts.strategy import *
-
+from scripts.split_krakendata  import *
 # Set up parameters
 pair = 'XBTAUD'  # BTC/AUD pair
 interval = 1440  # Daily interval
