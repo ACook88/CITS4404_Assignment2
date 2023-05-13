@@ -12,17 +12,17 @@ class TEMA(bt.Strategy):
         self.medium_p = bt.indicators.EMA(self.data.close, period=self.p.ema2)
         self.large_p = bt.indicators.EMA(self.data.close, period=self.p.ema3)
 
-        self.prev_signal = None  # Track the previous signal
+        self.prev_signal = 'sell'  # Track the previous signal
 
     def next(self):
         # Check if the small period EMA is greater than the others and execute buy signal
         if self.small_p > self.medium_p and self.small_p > self.large_p:
-            if self.prev_signal != 'buy':
+            if self.prev_signal == 'sell':
                 self.buy()
                 self.prev_signal = 'buy'
         # Check if the small period EMA is less than the others and execute sell signal
         elif self.small_p < self.medium_p and self.small_p < self.large_p:
-            if self.prev_signal != 'sell':
+            if self.prev_signal == 'buy':
                 self.sell()
                 self.prev_signal = 'sell'
 

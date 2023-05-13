@@ -20,16 +20,16 @@ df = df.set_index('unixtimestap')
 df = df.apply(pd.to_numeric)
 
 # calculate technical analysis indicators
-df['sma20'] = ta.trend.SMAIndicator(df['close'], window=20).sma_indicator()
-df['sma50'] = ta.trend.SMAIndicator(df['close'], window=50).sma_indicator()
-df['rsi'] = ta.momentum.RSIIndicator(df['close']).rsi()
+df['sma1'] = ta.trend.SMAIndicator(df['close'], window=1).sma_indicator()
+df['sma2'] = ta.trend.SMAIndicator(df['close'], window=17).sma_indicator()
+df['sma3'] = ta.trend.SMAIndicator(df['close'], window=58).sma_indicator()
 
 # determine buy/sell flags
 df['flag'] = ''
 for i in range(1, len(df)):
-    if df['sma20'][i] > df['sma50'][i] and df['sma20'][i-1] < df['sma50'][i-1]:
+    if df['sma1'][i] > df['sma2'][i] and df['sma1'][i-1] > df['sma3'][i-1]:
         df['flag'][i] = 'buy'
-    elif df['sma20'][i] < df['sma50'][i] and df['sma20'][i-1] > df['sma50'][i-1]:
+    elif df['sma1'][i] < df['sma2'][i] and df['sma1'][i-1] < df['sma3'][i-1]:
         df['flag'][i] = 'sell'
 
 # create a copy of the dataframe with only the records that have a buy or sell flag
@@ -41,8 +41,8 @@ df_with_flags.to_json('btc_aud_data.json', orient='records')
 # plot the chart
 mpf.plot(df, type='candle', style='charles', mav=(20, 50), volume=True,
          title='BTC/AUD', ylabel='Price (AUD)', ylabel_lower='Volume',
-         figratio=(12, 8), addplot=[mpf.make_addplot(df['sma20']),
-                                   mpf.make_addplot(df['sma50']),
-                                   mpf.make_addplot(df['rsi'], panel=1)])
+         figratio=(12, 8), addplot=[mpf.make_addplot(df['sma1']),
+                                   mpf.make_addplot(df['sma2']),
+                                   mpf.make_addplot(df['sma3'], panel=1)])
 
 plt.show()
