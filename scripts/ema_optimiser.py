@@ -65,7 +65,7 @@ def optimise_ema(backtest_func, ema_range, population_size, generations,low_boun
         if ema3 <= ema2 or ema3 <= ema1:
             return -np.inf,
         
-        final_portfolio_value = backtest_func('data/kraken_data.csv', ema1=ema1, ema2=ema2, ema3=ema3)
+        final_portfolio_value = backtest_func('data/kraken_train.csv', ema1=ema1, ema2=ema2, ema3=ema3)
 
         return final_portfolio_value,
 

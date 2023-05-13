@@ -13,6 +13,9 @@ try:
 except Exception as e:
     print(f"Error retrieving Kraken data: {e}")
 
+#Split function, must provide the date in the format %d-%m-%y
+pd_split(kraken_data,'01-01-2022')
+
 # Set parameters for optimization
 ema_ranges = (range(1, 25), range(5, 50), range(10, 75))
 population_size = 100
@@ -26,4 +29,4 @@ print(f"Best individual: {best_individual}, best fitness: {best_fitness}")
 
 # Run evaluation
 ema1, ema2, ema3 = best_individual
-backtest('data/kraken_data.csv', plot=True, ema1=ema1, ema2=ema2, ema3=ema3)
+backtest('data/kraken_validation.csv', plot=True, ema1=ema1, ema2=ema2, ema3=ema3)
